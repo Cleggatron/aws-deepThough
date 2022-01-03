@@ -1,0 +1,20 @@
+//import our dependencies
+const AWS = require("aws-sdk");
+const {v4: uuidv4} = require("uuid");
+//set our region
+AWS.config.update({region: "us-east-2"});
+
+// create an S3 service object
+const s3 = new AWS.S3({apiVersion: "2006-03-01"})
+
+var bucketParams = {
+    Bucket : "user-images-" + uuidv4(),
+};
+
+s3.createBucket(bucketParams, (err, data) => {
+    if(err){
+        console.log("Error: ", err);
+    } else {
+        console.log("Sucess");
+    }
+});
