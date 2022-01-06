@@ -24,4 +24,35 @@ router.get("/users", (req, res) => {
     })
 })
 
+router.get("/users/:username", (req, res) => {
+    console.log(`Querying for thought(s) from ${req.params.username}`);
+
+    //KeyConditionExpression is what we are searching against
+    // #un etc are aliases for attributes defined in ExpressionAttributeNames
+    // ProjectExpression is the data we return
+    const params = {
+        TableName: table,
+        KeyConditionExpression: "#un = :user",
+        ExpressionAttributeNames: {
+            "#un": "username",
+            "#ca": "createdAt",
+            "#th": "thought"
+        },
+        ExpressionAttributeValues: {
+            ":user": req.params.username
+        },
+        ProjectionExpression: "#th, #ca",
+        ScanIndexForward: false
+    }
+
+    dynamodb.query(params, (err, data) => {
+        if(err){
+            console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
+            res.status(500).json(err); 
+        } else {
+            res.json(data.Items)
+        }
+    });
+});
+
 module.exports =  router
