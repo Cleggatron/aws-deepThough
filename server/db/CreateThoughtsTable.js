@@ -3,8 +3,7 @@ const AWS = require("aws-sdk");
 
 //update our config. local host requires dynamo db working in other terminal
 AWS.config.update({
-    region: "us-east-2",
-    endpoint: "http://localhost:8000"
+    region: "us-east-2"
 });
 
 //create dynamo db

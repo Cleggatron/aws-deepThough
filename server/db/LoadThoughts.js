@@ -3,8 +3,7 @@ const fs = require("fs");
 
 //add our interface to dynamo db
 AWS.config.update({
-    region: "us-east-2",
-    endpoint: "http://localhost:8000"
+    region: "us-east-2"
   });
 
 //DocumentClient() lets us use javascript objects as arguements and returns javascript
