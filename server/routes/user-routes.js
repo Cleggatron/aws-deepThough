@@ -41,8 +41,6 @@ router.get('/users/:username', (req, res) => {
       ProjectionExpression: "#un, #th, #ca",
       ScanIndexForward: false
     };
-
-    console.log(params)
     
     dynamodb.query(params, (err, data) => {
       if (err) {
@@ -50,7 +48,6 @@ router.get('/users/:username', (req, res) => {
         res.status(500).json(err); // an error occurred
       } else {
         console.log("Query succeeded.");
-        console.log(data.Items)
         res.json(data.Items)
       }
     });
